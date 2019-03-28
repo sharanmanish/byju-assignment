@@ -32,12 +32,15 @@
       </mat-form-field>
     </div>
     <div>
-          <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="Start Date" (dateChange) = "startDateChange($event)" [value]="initialDateStart">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="Child Subject" [(ngModel)] = "chsubject">
+          <mat-option *ngFor="let chsubject of chsubjects" [value] = "chsubject !== 'Reset' ? chsubject : undefine" (click) = "update()">
+            {{chsubject}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
+    
   </div>
 
   <mat-toolbar>
