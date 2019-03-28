@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
     this.dataService.getData().subscribe(
       (response) => {
         this._datas = response;
-        this.datas = this._datas;
+        Object.assign(this.datas, this._datas);
         this.fillAll();
       },
       (error) => {
@@ -333,7 +333,7 @@ export class AppComponent implements OnInit {
       this.fillAll();
     } else {
       this.datas = [];
-      this.datas = this._datas;
+      Object.assign(this.datas , this._datas);
       this.fillAll(true);
     }
   }
