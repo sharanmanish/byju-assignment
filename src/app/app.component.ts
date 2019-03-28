@@ -341,11 +341,11 @@ export class AppComponent implements OnInit {
   sortfn() {
     
     if(this.sortby === 'Length'){
-      this.datas = this._datas.sort((a, b) => {
+      this.datas = this.datas.sort((a, b) => {
         return b['Length'] - a['Length'];
       })
     } if(this.sortby === undefined) {
-      this.update
+      this.update()
     }
   }
 }
