@@ -345,7 +345,7 @@ export class AppComponent implements OnInit {
         return b['Length'] - a['Length'];
       })
     } if(this.sortby === undefined) {
-      this.update()
+      this.update();
     }
   }
 }
