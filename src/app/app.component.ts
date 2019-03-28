@@ -9,6 +9,7 @@ import { DataService } from './data.service';
 export class AppComponent implements OnInit {
   datas: any = [];
   _datas: any = [];
+  
   constructor(private dataService: DataService) {
 
   }
@@ -28,6 +29,10 @@ export class AppComponent implements OnInit {
   chsubjects: any = ['Reset'];
 
   chsubject;
+
+  sortarr: any = ['Reset', 'Length', 'Next Session Date'];
+
+  sortby;
 
 
   ngOnInit() {
@@ -330,6 +335,17 @@ export class AppComponent implements OnInit {
       this.datas = [];
       this.datas = this._datas;
       this.fillAll(true);
+    }
+  }
+
+  sortfn() {
+    
+    if(this.sortby === 'Length'){
+      this.datas = this._datas.sort((a, b) => {
+        return b['Length'] - a['Length'];
+      })
+    } if(this.sortby === undefined) {
+      this.update
     }
   }
 }

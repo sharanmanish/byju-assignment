@@ -48,8 +48,19 @@
       <div fxFlex = "65">
         <span style= "font-weight: 400; font-size: 18px; color: #6c757d; margin-left: 2%">Courses Count = {{ datas ? datas.length : '' }}</span>
       </div>
-      <div fxFlex = "20">
-        <div class="input-group">
+      
+      <div fxFlex = "15">
+        <mat-form-field style="font-size: 13px; position: absolute"  class="overidefchild">
+        <mat-select placeholder="Sort By" [(ngModel)] = "sortby">
+          <mat-option *ngFor="let sortby of sortarr" [value] = "sortby !== 'Reset' ? sortby : undefined" (click) = "sortfn()" class="black">
+            {{sortby}}
+          </mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <div class="input-group" style="margin-left: 24px">
           <input class="form-control border-secondary py-2" placeholder="Search" [(ngModel)]="searchString" (keyup.enter)="searchInput()"  (keyup.backspace)="searchInput()">
           <div class="input-group-append">
             <button id="mpsb" class="btn btn-outline-secondary border-left-1 border" type="submit" (click)="searchInput()">
@@ -58,6 +69,7 @@
           </div>
         </div>
       </div>
+      
 
     </div>
   </mat-toolbar>
