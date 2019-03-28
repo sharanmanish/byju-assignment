@@ -44,7 +44,22 @@
   </div>
 
   <mat-toolbar>
-    <span style= "font-weight: 400; font-size: 18px">Courses Count = {{ datas ? datas.length : '' }}</span>
+    <div fxLayout = "row" style = "width: 100%">
+      <div fxFlex = "65">
+        <span style= "font-weight: 400; font-size: 18px; color: #6c757d; margin-left: 2%">Courses Count = {{ datas ? datas.length : '' }}</span>
+      </div>
+      <div fxFlex = "20">
+        <div class="input-group">
+          <input class="form-control border-secondary py-2" placeholder="Search" [(ngModel)]="searchString" (keyup.enter)="searchInput()"  (keyup.backspace)="searchInput()">
+          <div class="input-group-append">
+            <button id="mpsb" class="btn btn-outline-secondary border-left-1 border" type="submit" (click)="searchInput()">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </mat-toolbar>
 </div>
 
@@ -70,5 +85,3 @@
     </div>
   </mat-card>
 </section>
-
-

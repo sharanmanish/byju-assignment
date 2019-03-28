@@ -72,3 +72,14 @@
 ::ng-deep .mat-select-panel > mat-option:first-child {
     color: red;
 }
+
+.btn-outline-secondary:hover {
+    color: unset;
+    background-color: unset;
+    border-color: unset;
+  }
+  
+.border-secondary {
+    border-color: #d0d4d8!important;
+    background-color: whitesmoke;
+}
