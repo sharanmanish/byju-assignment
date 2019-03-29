@@ -364,9 +364,7 @@ export class AppComponent implements OnInit {
 
           f = moment(f, 'DD-MMM-YYYY').format('DD-MM-YYYY');
           f = f.split('-');
-          console.log(f);
           f = new Date(f[2], f[1], f[0]);
-          console.log(f);
           f.setHours(0,0,0,0);
 
         } else {
