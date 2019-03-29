@@ -11,9 +11,7 @@ export class AppComponent implements OnInit {
   datas: any = [];
   _datas: any = [];
 
-  constructor(private dataService: DataService) {
-
-  }
+  searchString = '';
 
   providers: any = ['Reset'];
 
@@ -34,6 +32,8 @@ export class AppComponent implements OnInit {
   sortarr: any = ['Reset', 'Length', 'Next Session Date'];
 
   sortby;
+
+  constructor(private dataService: DataService) { }
 
 
   ngOnInit() {
@@ -341,6 +341,9 @@ export class AppComponent implements OnInit {
     if (this.sortby !== undefined) {
       this.sortfn();
     }
+    if (this.searchString !== '') {
+      this.searchInput();
+    }
   }
 
   sortfn() {
@@ -365,11 +368,11 @@ export class AppComponent implements OnInit {
           f = moment(f, 'DD-MMM-YYYY').format('DD-MM-YYYY');
           f = f.split('-');
           f = new Date(f[2], f[1], f[0]);
-          f.setHours(0,0,0,0);
+          f.setHours(0, 0, 0, 0);
 
         } else {
           f = new Date('01-01-1000');
-          f.setHours(0,0,0,0);
+          f.setHours(0, 0, 0, 0);
         }
         if (b['Next Session Date'] && b['Next Session Date'].includes(',')) {
           s = b['Next Session Date'];
@@ -384,10 +387,10 @@ export class AppComponent implements OnInit {
           console.log(s);
           s = new Date(s[2], s[1], s[0]);
           console.log(s);
-          s.setHours(0,0,0,0);
+          s.setHours(0, 0, 0, 0);
         } else {
           s = new Date('01-01-1000');
-          s.setHours(0,0,0,0);
+          s.setHours(0, 0, 0, 0);
         }
 
         return s - f;
@@ -396,6 +399,22 @@ export class AppComponent implements OnInit {
     }
     if (this.sortby === undefined) {
       this.update();
+    }
+    if (this.searchString !== '') {
+      this.searchInput();
+    }
+  }
+
+  searchInput() {
+    if (this.searchString !== '') {
+      this.datas = this.datas.filter(x => x["Course Name"].toString().includes(this.searchString));
+
+      // we can add more conditions
+      // x["Course Id"].toString().includes(this.searchString) || x["Course Name"].toString().includes(this.searchString || ......
+      
+    } else {
+      this.update();
+      this.sortfn();
     }
   }
 }
