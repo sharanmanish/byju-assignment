@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from './data.service';
-import * as moment_ from 'moment';
-const moment = moment_;
+import moment from 'moment';
 
 @Component({
   selector: 'my-app',
@@ -353,8 +352,8 @@ export class AppComponent implements OnInit {
     }
     if (this.sortby === 'Next Session Date') {
       this.datas = this.datas.sort((a, b) => {
-        let f: any;
-        let s: any;
+        let f: any = '';
+        let s: any = '';
         if (a['Next Session Date'] && a['Next Session Date'].includes(',')) {
           f = a['Next Session Date'];
           f = f.replace('th ', '-');
@@ -364,12 +363,14 @@ export class AppComponent implements OnInit {
           }
 
           f = moment(f, 'DD-MMM-YYYY').format('DD-MM-YYYY');
-
-          f = new Date(f);
+          f = f.split('-');
+          console.log(f);
+          f = new Date(f[2], f[1], f[0]);
+          console.log(f);
           f.setHours(0,0,0,0);
 
         } else {
-          f = new Date('00-00-0000');
+          f = new Date('01-01-1000');
           f.setHours(0,0,0,0);
         }
         if (b['Next Session Date'] && b['Next Session Date'].includes(',')) {
@@ -381,16 +382,17 @@ export class AppComponent implements OnInit {
           }
 
           s = moment(s, 'DD-MMM-YYYY').format('DD-MM-YYYY');
-          s = new Date(s);
+          s = s.split('-');
+          console.log(s);
+          s = new Date(s[2], s[1], s[0]);
+          console.log(s);
           s.setHours(0,0,0,0);
         } else {
-          s = new Date('00-00-0000');
+          s = new Date('01-01-1000');
           s.setHours(0,0,0,0);
         }
 
-        if(f >= s){
-          return a - b;
-        }
+        return s - f;
 
       })
     }
