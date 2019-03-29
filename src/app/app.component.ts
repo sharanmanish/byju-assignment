@@ -407,11 +407,11 @@ export class AppComponent implements OnInit {
 
   searchInput() {
     if (this.searchString !== '') {
-      this.datas = this.datas.filter(x => x["Course Name"].toString().includes(this.searchString));
+      this.datas = this.datas.filter(x => x["Course Name"].toString().toLowerCase().includes(this.searchString.toLowerCase()));
 
       // we can add more conditions
       // x["Course Id"].toString().includes(this.searchString) || x["Course Name"].toString().includes(this.searchString || ......
-      
+
     } else {
       this.update();
       this.sortfn();
