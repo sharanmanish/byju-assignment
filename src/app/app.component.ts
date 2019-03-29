@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from './data.service';
+import * as moment_ from 'moment';
+const moment = moment_;
 
 @Component({
   selector: 'my-app',
@@ -9,7 +11,7 @@ import { DataService } from './data.service';
 export class AppComponent implements OnInit {
   datas: any = [];
   _datas: any = [];
-  
+
   constructor(private dataService: DataService) {
 
   }
@@ -333,22 +335,66 @@ export class AppComponent implements OnInit {
       this.fillAll();
     } else {
       this.datas = [];
-      Object.assign(this.datas , this._datas);
+      Object.assign(this.datas, this._datas);
       this.fillAll(true);
     }
 
-    if(this.sortby !== undefined) {
+    if (this.sortby !== undefined) {
       this.sortfn();
     }
   }
 
   sortfn() {
-    
-    if(this.sortby === 'Length'){
+
+    if (this.sortby === 'Length') {
       this.datas = this.datas.sort((a, b) => {
         return b['Length'] - a['Length'];
       })
-    } if(this.sortby === undefined) {
+    }
+    if (this.sortby === 'Next Session Date') {
+      this.datas = this.datas.sort((a, b) => {
+        let f: any;
+        let s: any;
+        if (a['Next Session Date'] && a['Next Session Date'].includes(',')) {
+          f = a['Next Session Date'];
+          f = f.replace('th ', '-');
+          f = f.replace(', ', '-');
+          if (f.length < 10) {
+            f = "01-" + f;
+          }
+
+          f = moment(f, 'DD-MMM-YYYY').format('DD-MM-YYYY');
+
+          f = new Date(f);
+          f.setHours(0,0,0,0);
+
+        } else {
+          f = new Date('00-00-0000');
+          f.setHours(0,0,0,0);
+        }
+        if (b['Next Session Date'] && b['Next Session Date'].includes(',')) {
+          s = b['Next Session Date'];
+          s = s.replace('th ', '-');
+          s = s.replace(', ', '-');
+          if (s.length < 10) {
+            s = "01-" + s;
+          }
+
+          s = moment(s, 'DD-MMM-YYYY').format('DD-MM-YYYY');
+          s = new Date(s);
+          s.setHours(0,0,0,0);
+        } else {
+          s = new Date('00-00-0000');
+          s.setHours(0,0,0,0);
+        }
+
+        if(f >= s){
+          return a - b;
+        }
+
+      })
+    }
+    if (this.sortby === undefined) {
       this.update();
     }
   }
