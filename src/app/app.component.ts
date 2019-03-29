@@ -336,6 +336,10 @@ export class AppComponent implements OnInit {
       Object.assign(this.datas , this._datas);
       this.fillAll(true);
     }
+
+    if(this.sortby !== undefined) {
+      this.sortfn();
+    }
   }
 
   sortfn() {
